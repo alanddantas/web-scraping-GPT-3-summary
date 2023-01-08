@@ -33,4 +33,11 @@ def generate_summary():
   summary = completion.choices[0].text
 
   return summary
+  
+  # Note from Alan Dantas:
+  
+  # make sure to add the templates folder in your working directory. 
+  # I tried it with pythonanywhere.com and it worked. Main problem was the amount of tokens it was sending depending on website size
+  # you can limit it by chunking or limiting the parsed content passed to openai
+  # also make sure to either have a paid account or use pythonanywhere whitelisted sites: https://www.pythonanywhere.com/whitelist/ or it won't connect to some sites
 
