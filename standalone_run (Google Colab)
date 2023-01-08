@@ -1,0 +1,25 @@
+#install beautifulsoup to parse text and openai to work with GPT-3
+pip install openai beautifulsoup4
+import openai
+import requests
+from bs4 import BeautifulSoup
+
+# Scrape the website and extract the relevant text
+url = "https://www.example.com" #indicate URL here
+page = requests.get(url)
+soup = BeautifulSoup(page.content, "html.parser")
+text = soup.get_text()
+
+# Clean and preprocess the text
+text = text.strip()  # remove leading and trailing whitespace
+text = text.lower()  # convert to lowercase
+text = text.replace("\n", " ")  # replace newlines with spaces
+
+# Use GPT-3 to generate a summary
+openai.api_key = "YOUR_API_KEY" # indicate your openAI key here https://beta.openai.com/account/api-keys
+prompt = f"Please summarize the following text: {text}"
+model_engine = "davinci" #choose which model to use (ada is cheaper - davinci is the most expensive at this time)
+completion = openai.Completion.create(engine=model_engine, prompt=prompt, max_tokens=1024, n=1,stop=None,temperature=0.5)
+summary = completion.choices[0].text
+
+print(summary)
